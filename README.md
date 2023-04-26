@@ -17,7 +17,7 @@ INSTALLED_APPS = [
 path('yt/', include('ersciyt.urls')),
 ```
 
-3.Visit http://127.0.0.1:8000/erscipcard/ to create users and its cards.
+3.Visit http://127.0.0.1:8000/yt/ to create users and its cards.
 
 add this line to your project setting.py
 ```

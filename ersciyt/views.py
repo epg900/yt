@@ -12,14 +12,15 @@ import re
 
 def ytdwn(request,link):
     try:        
-        os.system('yt-dlp -o a.webm https://www.youtube.com/watch?v={}'.format(link))
-        tmp4=open('a.webm' , 'rb')
+        #os.system('sudo apt-get install -y ffmpeg') 
+        os.system('yt-dlp  -f 18 -o a.mp4 https://www.youtube.com/watch?v={}'.format(link))        
+        tmp4=open('a.mp4' , 'rb')
         tmp5=tmp4.read()
         tmp4.close()
-        response=HttpResponse(tmp5, content_type='video/webm')
-        response['Content-Length'] = os.path.getsize('a.webm')
-        response['Content-Disposition'] = 'filename=a.webm'
-        os.remove('a.webm')
+        response=HttpResponse(tmp5, content_type='video/mp4')
+        response['Content-Length'] = os.path.getsize('a.mp4')
+        response['Content-Disposition'] = 'filename=a.mp4'
+        os.remove('a.mp4')
         '''
         video = YouTube('https://www.youtube.com/watch?v=%s' % link)
         stream = video.streams.get_highest_resolution()

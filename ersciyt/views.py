@@ -11,11 +11,20 @@ import re
 
 
 def ytdwn(request,link):
-    try:
+    try:        
+        os.system('yt-dlp -o a.webm https://www.youtube.com/watch?v={}'.format(link))
+        tmp4=open('a.webm' , 'rb')
+        tmp5=tmp4.read()
+        tmp4.close()
+        response=HttpResponse(tmp5, content_type='video/webm')
+        response['Content-Length'] = os.path.getsize('a.webm')
+        response['Content-Disposition'] = 'filename=a.webm'
+        os.remove('a.webm')
+        '''
         video = YouTube('https://www.youtube.com/watch?v=%s' % link)
         stream = video.streams.get_highest_resolution()
         file = str(link)
-        media_dir=os.path.join(settings.BASE_DIR,'ytdown','media')
+        media_dir=os.path.join(settings.BASE_DIR,'media')
         stream.download(output_path=media_dir,filename=file)
         tmp4=open(media_dir + '/' + file , 'rb')
         tmp5=tmp4.read()
@@ -26,6 +35,7 @@ def ytdwn(request,link):
         response['Content-Length'] = os.path.getsize(media_dir + '/' + file)
         response['Content-Disposition'] = 'filename=%s' % fn
         os.remove(media_dir + '/' + file)
+        '''
         return response
     except:
         return HttpResponse ('Youtube Url Is Mistake!')

@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.conf import settings
-from pytube import YouTube
+#from pytube import YouTube
 import os,subprocess
 from django.http import HttpResponse,FileResponse
-from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api.formatters import WebVTTFormatter
+#from youtube_transcript_api import YouTubeTranscriptApi
+#from youtube_transcript_api.formatters import WebVTTFormatter
 #pip install googletrans==4.0.0-rc1
 #from googletrans import Translator
 import re
@@ -40,9 +40,10 @@ def ytdwn(request,link):
         return response
     except:
         return HttpResponse ('Youtube Url Is Mistake!')
-
+'''
 def sub(request,lang,link):
     try:
+        
         video = YouTube('https://www.youtube.com/watch?v=%s' % link)
         stream = video.streams.get_highest_resolution()
         media_dir=os.path.join(settings.BASE_DIR,'ytdown','media')
@@ -106,35 +107,22 @@ def abcut(request,time,link):
         return response
     except:
         return HttpResponse ('Youtube Url Is Mistake!')
-
-def ytlink(request):
+'''
+def vid(request):
     try:
-        link=''
-        if request.method == 'GET' and 'url' in request.GET:
-            txt = request.GET['url']
-            arr = txt.split("watch%3Fv%3D");
-            arr1 = arr[-1].split("watch?v=");
-            arr2 = arr1[-1].split("&");
-            link = arr2[0];
-
-        video = YouTube('https://www.youtube.com/watch?v=%s' % link)
-        stream = video.streams.get_highest_resolution()
-        media_dir=os.path.join(settings.BASE_DIR,'ytdown','media')
-        file = str(link)
-        stream.download(output_path=media_dir,filename=file)
-        tmp4=open(media_dir + '/' + file , 'rb')
+        link=request.GET['url']
+        os.system('yt-dlp  -f 18 -o a.mp4 {}'.format(link))        
+        tmp4=open('a.mp4' , 'rb')
         tmp5=tmp4.read()
         tmp4.close()
-        fn=stream.default_filename
-        fn=re.sub(r"\s+", '_', fn)
         response=HttpResponse(tmp5, content_type='video/mp4')
-        response['Content-Length'] = os.path.getsize(media_dir + '/' + file)
-        response['Content-Disposition'] = 'attachment; filename=%s' % fn
-        os.remove(media_dir + '/' + file)
+        response['Content-Length'] = os.path.getsize('a.mp4')
+        response['Content-Disposition'] = 'filename=a.mp4'
+        os.remove('a.mp4')
         return response
     except:
         return HttpResponse ('Youtube Url Is Mistake!!')
-
+'''
 def ytmp3(request,link):
     try:
         video = YouTube('https://www.youtube.com/watch?v=%s' % link)
@@ -156,25 +144,17 @@ def ytmp3(request,link):
         return response
     except:
         return HttpResponse (video.description)
-
+'''
 
 def helping(request):
     try:
         return HttpResponse ('''
         <p>Use address of youtube after watch like - for download video -  :<br>
-        <b> YourSiteName/ytlink?url=https://www.youtube.com/watch?v=xazlZh1lTpM</b><br>
+        <b> YourSiteName/ytlink?url=<any video site link></b><br>
         or<br>
         link name like - for play in firefox -  : <br>
-        <b>YourSiteName/xazlZh1lTpM</b><br>
-        and<br>
-        for download Mp3 Audio : <br>
-        <b>YourSiteName/mp3/xazlZh1lTpM</b><br>
-        for download A-B Cutting Video (from 00:30 to 00:70) : <br>
-        <b>YourSiteName/ab/00300070/xazlZh1lTpM</b><br>
-        for Subtitle the video (for any language enter language code like en,fa,it ) : <br>
-        <b>YourSiteName/en/xazlZh1lTpM</b><br>
-        <br>
-        <a href="/static/epg_youtube4.xpi">YouTube Firefox Addon</a></br>
+        <b>YourSiteName/xazlZh1lTpM</b><br>        
+        <a href="/static/ersci_viddown2.xpi">video download firefox Addon</a></br>
         </p>
         ''')
     except:

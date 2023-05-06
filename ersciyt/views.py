@@ -154,7 +154,10 @@ def helping(request):
         or<br>
         link name like - for play in firefox -  : <br>
         <b>YourSiteName/xazlZh1lTpM</b><br>        
-        <a href="/static/ersci_viddown2.xpi">video download firefox Addon</a></br>
+        <a href="/static/ersci_viddown_tab2.xpi">Video download firefox Addon direct link</a><br>
+        or<br>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/ersci_viddown_tab2">video download firefox Addon mozilla site link</a>
+        
         </p>
         ''')
     except:

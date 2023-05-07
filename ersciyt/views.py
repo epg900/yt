@@ -150,7 +150,7 @@ def ytmp3(request,link):
 
 def helping(request):
     try:
-        qr_code = pyqrcode.create(request.headers['Host']))
+        qr_code = pyqrcode.create(request.headers['Host'])
         qr_code.svg('a.svg', scale=6)
         return HttpResponse ('''
         <p>Use address of youtube after watch like - for download video -  :<br>

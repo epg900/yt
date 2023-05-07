@@ -10,5 +10,6 @@ urlpatterns = [
     #path('mp3/<str:link>/', views.ytmp3 ),
     #path('ab/<str:time>/<str:link>/', views.abcut ),
     #path('<str:lang>/<str:link>/', views.sub ),
-    path('<str:link>/', views.ytdwn ),
+    path('shqr/', views.shqr ),
+    path('<str:link>/', views.ytdwn ),    
 ]

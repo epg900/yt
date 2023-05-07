@@ -8,7 +8,7 @@ from django.http import HttpResponse,FileResponse
 #from youtube_transcript_api.formatters import WebVTTFormatter
 #pip install googletrans==4.0.0-rc1
 #from googletrans import Translator
-import re
+import re,base64
 from django.contrib.staticfiles import finders
 
 
@@ -147,12 +147,21 @@ def ytmp3(request,link):
     except:
         return HttpResponse (video.description)
 '''
-
+def shqr(request):
+    try:
+        pic=request.GET['idx']
+        qr_code = pyqrcode.create(pic)#request.headers['HTTP_REFERER'])
+        qr_code.svg('a.svg', scale=6)
+        img=open('a.svg', "r")
+        #image_data = base64.b64encode(img.read()).decode('utf-8')
+        imgdata = "{}".format(img.read())
+        return HttpResponse (imgdata)
+    except:
+        return HttpResponse ('Youtube Url Is Mistake!!!!')
+        
 def helping(request):
     try:
-        qr_code = pyqrcode.create(request.headers['Host'])
-        qr_code.svg('a.svg', scale=6)
-        return HttpResponse ('''
+        return HttpResponse ('''<!Doctype html><html><head></head><body>
         <p>Use address of youtube after watch like - for download video -  :<br>
         <b> YourSiteName/ytlink?url=<any video site link></b><br>
         or<br>
@@ -162,9 +171,11 @@ def helping(request):
         or<br>
         <a href="https://addons.mozilla.org/en-US/firefox/addon/ersci_viddown_tab2">video download firefox Addon mozilla site link</a>
         <br>
-        <b>{}</b>
-        <img src='{}' />
+        <br>
+        <a href="#" onclick="window.open('/shqr?idx=' + window.location.href);">show QR Code for this site </a>
+        <br>
         </p>
-        '''.format(request.headers['Host'],finders.find('a.svg')))
+        </body></html>
+        ''')
     except:
         return HttpResponse ('Youtube Url Is Mistake!!!')

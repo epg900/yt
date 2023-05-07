@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 #from pytube import YouTube
+import pyqrcode
 import os,subprocess
 from django.http import HttpResponse,FileResponse
 #from youtube_transcript_api import YouTubeTranscriptApi
@@ -8,6 +9,7 @@ from django.http import HttpResponse,FileResponse
 #pip install googletrans==4.0.0-rc1
 #from googletrans import Translator
 import re
+from django.contrib.staticfiles import finders
 
 
 def ytdwn(request,link):
@@ -148,17 +150,21 @@ def ytmp3(request,link):
 
 def helping(request):
     try:
+        qr_code = pyqrcode.create(request.headers['Host']))
+        qr_code.svg('a.svg', scale=6)
         return HttpResponse ('''
         <p>Use address of youtube after watch like - for download video -  :<br>
         <b> YourSiteName/ytlink?url=<any video site link></b><br>
         or<br>
-        link name like - for play in firefox -  : <br>
+        enter Youtube ID after YourSiteName address - for play in firefox -  : <br>
         <b>YourSiteName/xazlZh1lTpM</b><br>        
         <a href="/static/ersci_viddown_tab2.xpi">Video download firefox Addon direct link</a><br>
         or<br>
         <a href="https://addons.mozilla.org/en-US/firefox/addon/ersci_viddown_tab2">video download firefox Addon mozilla site link</a>
-        
+        <br>
+        <b>{}</b>
+        <img src='{}' />
         </p>
-        ''')
+        '''.format(request.headers['Host'],finders.find('a.svg')))
     except:
         return HttpResponse ('Youtube Url Is Mistake!!!')

@@ -172,7 +172,7 @@ def helping(request):
         <a href="https://addons.mozilla.org/en-US/firefox/addon/ersci_viddown_tab2">video download firefox Addon mozilla site link</a>
         <br>
         <br>
-        <a href="#" onclick="window.open('/shqr?idx=' + window.location.href);">show QR Code for this site </a>
+        <a href="" onclick="window.open('/shqr?idx=' + window.location.href);">show QR Code for this site </a>
         <br>
         </p>
         </body></html>

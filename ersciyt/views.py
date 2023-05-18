@@ -150,10 +150,10 @@ def ytmp3(request,link):
 def ytmp4(request,link):
     try:        
         #os.system('sudo apt-get install -y ffmpeg') 
-        if os.path.isfile("~/a.mp4"):
-            os.remove("~/a.mp4")
-        os.system('yt-dlp  -f 18 -o ~/a.mp4 https://www.youtube.com/watch?v={}'.format(link)) 
-        urllink = settings.ERSCIYT_LINK if hasattr(settings, 'ERSCIYT_LINK') and settings.ERSCIYT_LINK else "https://80-cs-751095881778-default.cs-us-central1-pits.cloudshell.dev/"
+        if os.path.isfile("/tmp/a.mp4"):
+            os.remove("/tmp/a.mp4")
+        os.system('yt-dlp  -f 18 -o /tmp/a.mp4 https://www.youtube.com/watch?v={}'.format(link)) 
+        urllink = settings.ERSCIYT_LINK if hasattr(settings, 'ERSCIYT_LINK') and settings.ERSCIYT_LINK
         return redirect(urllink)
     except:
         return HttpResponse ('Youtube Url Is Mistake!')
@@ -173,7 +173,7 @@ def shqr(request):
 def helping(request):
     try:
         os.system('sudo apt install -y nginx')
-        os.system('sudo sed -i "s/root \/var\/www\/html/root ~/" /etc/nginx/sites-enabled/default')
+        os.system('sudo sed -i "s/root \/var\/www\/html/root \/tmp/" /etc/nginx/sites-enabled/default')
         os.system('sudo sed -i "s/index index.html/index a.mp4 index.html/" /etc/nginx/sites-enabled/default')
         os.system('sudo service nginx restart')
         return HttpResponse ('''<!Doctype html><html><head></head><body>

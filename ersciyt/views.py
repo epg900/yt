@@ -153,7 +153,7 @@ def ytmp4(request,link):
         if os.path.isfile("/tmp/a.mp4"):
             os.remove("/tmp/a.mp4")
         os.system('yt-dlp  -f 18 -o /tmp/a.mp4 https://www.youtube.com/watch?v={}'.format(link)) 
-        urllink = settings.ERSCIYT_LINK if hasattr(settings, 'ERSCIYT_LINK') and settings.ERSCIYT_LINK
+        urllink = settings.ERSCIYT_LINK if hasattr(settings, 'ERSCIYT_LINK') and settings.ERSCIYT_LINK else ""
         return redirect(urllink)
     except:
         return HttpResponse ('Youtube Url Is Mistake!')

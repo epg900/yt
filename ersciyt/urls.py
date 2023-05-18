@@ -11,5 +11,6 @@ urlpatterns = [
     #path('ab/<str:time>/<str:link>/', views.abcut ),
     #path('<str:lang>/<str:link>/', views.sub ),
     path('shqr/', views.shqr ),
+    path('mp4/<str:link>/', views.ytmp4 ),
     path('<str:link>/', views.ytdwn ),    
 ]

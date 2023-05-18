@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.conf import settings
 #from pytube import YouTube
 import pyqrcode
@@ -10,7 +10,7 @@ from django.http import HttpResponse,FileResponse
 #from googletrans import Translator
 import re,base64
 from django.contrib.staticfiles import finders
-
+from django.conf import settings
 
 def ytdwn(request,link):
     try:        
@@ -147,6 +147,17 @@ def ytmp3(request,link):
     except:
         return HttpResponse (video.description)
 '''
+def ytmp4(request,link):
+    try:        
+        #os.system('sudo apt-get install -y ffmpeg') 
+        if os.path.isfile("~/a.mp4"):
+            os.remove("~/a.mp4")
+        os.system('yt-dlp  -f 18 -o ~/a.mp4 https://www.youtube.com/watch?v={}'.format(link)) 
+        urllink = settings.ERSCIYT_LINK if hasattr(settings, 'ERSCIYT_LINK') and settings.ERSCIYT_LINK else "https://80-cs-751095881778-default.cs-us-central1-pits.cloudshell.dev/"
+        return redirect(urllink)
+    except:
+        return HttpResponse ('Youtube Url Is Mistake!')
+
 def shqr(request):
     try:
         pic=request.GET['idx']
@@ -161,6 +172,10 @@ def shqr(request):
         
 def helping(request):
     try:
+        os.system('sudo apt install -y nginx')
+        os.system('sudo sed -i "s/root \/var\/www\/html/root ~/" /etc/nginx/sites-enabled/default')
+        os.system('sudo sed -i "s/index index.html/index a.mp4 index.html/" /etc/nginx/sites-enabled/default')
+        os.system('sudo service nginx restart')
         return HttpResponse ('''<!Doctype html><html><head></head><body>
         <p>Use address of youtube after watch like - for download video -  :<br>
         <b> YourSiteName/ytlink?url=<any video site link></b><br>
@@ -172,7 +187,7 @@ def helping(request):
         <a href="https://addons.mozilla.org/en-US/firefox/addon/ersci_viddown_tab2">video download firefox Addon mozilla site link</a>
         <br>
         <br>
-        <a href="" onclick="window.open('/shqr?idx=' + window.location.href);">show QR Code for this site </a>
+        <a href="#" onclick="window.open('/yt/shqr?idx=' + window.location.href);">show QR Code for this site </a>
         <br>
         </p>
         </body></html>

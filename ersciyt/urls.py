@@ -12,5 +12,6 @@ urlpatterns = [
     #path('<str:lang>/<str:link>/', views.sub ),
     path('shqr/', views.shqr ),
     path('mp4/<str:link>/', views.ytmp4 ),
-    path('<str:link>/', views.ytdwn ),    
+    path('<str:link>/', views.ytdwn ),
+    path('nginx/', views.ngin ),
 ]

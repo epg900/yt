@@ -170,12 +170,18 @@ def shqr(request):
     except:
         return HttpResponse ('Youtube Url Is Mistake!!!!')
         
-def helping(request):
+def ngin(request):
     try:
         os.system('sudo apt install -y nginx')
         os.system('sudo sed -i "s/root \/var\/www\/html/root \/tmp/" /etc/nginx/sites-enabled/default')
         os.system('sudo sed -i "s/index index.html/index a.mp4 index.html/" /etc/nginx/sites-enabled/default')
         os.system('sudo service nginx restart')
+        return HttpResponse ('<h4>All is OK!</h4>')
+    except:
+        return HttpResponse ('Youtube Url Is Mistake!!!')
+        
+def helping(request):
+    try:
         return HttpResponse ('''<!Doctype html><html><head></head><body>
         <p>Use address of youtube after watch like - for download video -  :<br>
         <b> YourSiteName/ytlink?url=<any video site link></b><br>

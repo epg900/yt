@@ -12,7 +12,9 @@ urlpatterns = [
     #path('<str:lang>/<str:link>/', views.sub ),
     path('shqr/', views.shqr ),
     path('mp4/<str:link>/', views.ytmp4 ),
+    path('yt/<str:link>/', views.yt2mp4 ),
     path('nginx/', views.ngin ),
     path('<str:link>/', views.ytdwn ),
+    
     
 ]

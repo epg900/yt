@@ -162,7 +162,7 @@ def yt2mp4(request,link):
     try:        
         vidpath = finders.find('ytvid.mp4')        
         if os.path.isfile(vidpath):
-            os.remove(vipath)
+            os.remove(vidpath)
         os.system('yt-dlp  -f 18 -o {} https://www.youtube.com/watch?v={}'.format(vidpath,link)) 
         return redirect("/static/ytvid.mp4")
     except:

@@ -188,7 +188,7 @@ def ngin(request):
         os.system('sudo service nginx restart')
         return HttpResponse ('<h4>All is OK!</h4>')
     except:
-        return HttpResponse ('Youtube Url Is Mistake!!!')
+        return HttpResponse ('<h4>Installation failed!!!</h4>')
         
 def helping(request):
     try:
@@ -206,6 +206,16 @@ def helping(request):
         <a href="#" onclick="window.open('/yt/shqr?idx=' + window.location.href);">show QR Code for this site </a>
         <br>
         </p>
+        <br>
+        You can use /mp4/<Youtube Video ID> to play video with jump into your custom time of video<br>
+        before it you should go /nginx to install nginx server and its appropriate configuration<br>
+        if <i> Installation failed!!! </i> message appeared You can install nginx with below command with sudo privilage:
+        <i>
+        sudo apt install -y nginx<br>
+        sudo sed -i "s/root \/var\/www\/html/root \/tmp/" /etc/nginx/sites-enabled/default<br>
+        sudo sed -i "s/index index.html/index a.mp4 index.html/" /etc/nginx/sites-enabled/default<br>
+        sudo service nginx restart<br>
+        </i>        
         </body></html>
         ''')
     except:

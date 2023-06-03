@@ -15,12 +15,11 @@ def run():
         content_new = re.sub('(ALLOWED_HOSTS = \[)', r"\1'*'", content, flags = re.M)
         content_new = re.sub('(INSTALLED_APPS = \[)', r"\1\n'ersciyt',", content_new, flags = re.M)
         webhost=os.getenv('WEB_HOST')
-        content_new += "\nERSCIYT_LINK = 'https:\/\/80-{}'".format(webhost)
+        content_new += "\nERSCIYT_LINK = 'https://80-{}'".format(webhost)
         f.close()
         f=open ('proj/proj/settings.py', 'w' )
         f.write(content_new)
         f.close()
-
         f=open ('proj/proj/urls.py', 'r' )
         content = f.read()
         content_new = re.sub('(from django.urls import path)', r"\1,include", content, flags = re.M)

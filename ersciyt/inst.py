@@ -1,20 +1,35 @@
-import os
+import os,re
 
-def inst():
+
+def run():
     try:
         os.system('''
         sudo apt install -y nginx
         sudo sed -i "s/root \/var\/www\/html/root \/tmp/" /etc/nginx/sites-enabled/default
         sudo sed -i "s/index index.html/index a.mp4 index.html/" /etc/nginx/sites-enabled/default
-        sudo service nginx restart
+        sudo service nginx restart        
         /usr/local/bin/django-admin  startproject proj
-        sed -i "s/ALLOWED_HOSTS = \[/&'*'/" proj/proj/settings.py
-        sed -i "s/INSTALLED_APPS = \[/& \n\t\t'ersciyt',/" proj/proj/settings.py
-        sed -i "s/STATIC_URL = 'static\/'/& \nERSCIYT_LINK = 'https:\/\/80-$WEB_HOST'/" proj/proj/settings.py
-        sed -i "s/from django.urls import path/&,include/" proj/proj/urls.py
-        sed -i "s/urlpatterns = \[/&\n\t\tpath('', include('ersciyt.urls')),/"  proj/proj/urls.py
-        python proj/manage.py runserver
         ''')
+        f=open ('proj/proj/settings.py', 'r' )
+        content = f.read()
+        content_new = re.sub('(ALLOWED_HOSTS = \[)', r"\1'*'", content, flags = re.M)
+        content_new = re.sub('(INSTALLED_APPS = \[)', r"\1\n'ersciyt',", content_new, flags = re.M)
+        webhost=os.getenv('WEB_HOST')
+        content_new += "\nERSCIYT_LINK = 'https:\/\/80-{}'".format(webhost)
+        f.close()
+        f=open ('proj/proj/settings.py', 'w' )
+        f.write(content_new)
+        f.close()
+
+        f=open ('proj/proj/urls.py', 'r' )
+        content = f.read()
+        content_new = re.sub('(from django.urls import path)', r"\1,include", content, flags = re.M)
+        content_new = re.sub('(urlpatterns = \[)', r"\1\n\t\tpath('', include('ersciyt.urls')),", content_new, flags = re.M)
+        f.close()
+        f=open ('proj/proj/urls.py', 'w' )
+        f.write(content_new)
+        f.close()        
+        os.system('python proj/manage.py runserver')
     except:
         print('Error in command')
         

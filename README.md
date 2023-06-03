@@ -18,3 +18,10 @@ path('yt/', include('ersciyt.urls')),
 ```
 
 3.Visit http://127.0.0.1:8000/yt/ to create users and its cards.
+
+4.run this command if you on shell.cloud.google:
+```
+python
+>>>from ersciyt import inst
+>>>inst.run()
+```

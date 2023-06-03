@@ -1,6 +1,6 @@
 import os,re
 
-def del():
+def delproj():
     os.system('rm -r proj')
     
 def run():

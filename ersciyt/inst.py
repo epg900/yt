@@ -1,6 +1,8 @@
 import os,re
 
-
+def del():
+    os.system('rm -r proj')
+    
 def run():
     try:
         os.system('''
